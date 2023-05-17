@@ -9,6 +9,9 @@ interface BaconText {
     wrongWord: number;
     isGameStarted: boolean;
     time: number;
+    currentIndex: number;
+    textError: boolean;
+    textFromKeyboard: string[];
 }
 
 const initialState: BaconText = {
@@ -20,6 +23,9 @@ const initialState: BaconText = {
     wrongWord: 0,
     isGameStarted: false,
     time: 0,
+    currentIndex: 0,
+    textError: false,
+    textFromKeyboard: [],
 };
 
 export const testSlice = createSlice({
@@ -49,14 +55,38 @@ export const testSlice = createSlice({
         incTime(state) {
             state.time += 1;
         },
+        setCurrentIndex(state, action: PayloadAction<number>) {
+            state.currentIndex = action.payload;
+        },
+        setTextError(state, action: PayloadAction<boolean>) {
+            state.textError = action.payload;
+        },
         clearGame(state) {
             state.speed = 0;
             state.correctWord = 0;
             state.wrongWord = 0;
             state.isGameStarted = false;
+            state.time = 0;
+            state.currentIndex = 0;
+            state.textError = false;
+            state.textFromKeyboard = [];
+        },
+        addTextFromKeyboard(state, action: PayloadAction<string>) {
+            state.textFromKeyboard = [...state.textFromKeyboard, action.payload];
         },
     },
 });
 
-export const { fetching, fetchSuccess, fetchError, gameStatus, incCorrectWord, incWrongWord, incTime, clearGame } =
-    testSlice.actions;
+export const {
+    fetching,
+    fetchSuccess,
+    fetchError,
+    gameStatus,
+    incCorrectWord,
+    incWrongWord,
+    incTime,
+    clearGame,
+    setCurrentIndex,
+    setTextError,
+    addTextFromKeyboard,
+} = testSlice.actions;

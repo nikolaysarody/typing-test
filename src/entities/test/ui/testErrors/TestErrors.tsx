@@ -10,8 +10,6 @@ export function TestErrors() {
         if (!isGameStarted) {
             return 100;
         }
-        console.log(textLength);
-        console.log(wrongWord);
         return (100 - (wrongWord / textLength) * 100).toFixed(1);
     };
 

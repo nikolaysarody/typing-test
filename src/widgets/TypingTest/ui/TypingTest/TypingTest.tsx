@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { TestErrors, TestSpeed, TestText } from '../../../../entities/test';
 import './TypingTest.scss';
+import { ResetTest } from '../../../../features/test/reset-test';
 
 export function TypingTest() {
     return (
@@ -13,6 +14,7 @@ export function TypingTest() {
                 <Col className="d-flex w-100 flex-column align-items-center justify-content-around">
                     <TestSpeed />
                     <TestErrors />
+                    <ResetTest />
                 </Col>
             </Row>
         </div>

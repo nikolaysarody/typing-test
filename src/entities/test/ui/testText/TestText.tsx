@@ -1,18 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { v4 } from 'uuid';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks';
-import { fetchText } from '../../model';
 import './TestText.scss';
-import { gameStatus, incCorrectWord, incWrongWord } from '../../model/slice';
+import {
+    gameStatus,
+    incCorrectWord,
+    incWrongWord,
+    fetchText,
+    setCurrentIndex,
+    setTextError,
+    addTextFromKeyboard,
+} from '../../model';
 
 export function TestText() {
     const dispatch = useAppDispatch();
     const text = useAppSelector((state) => state.test.text).split('');
-    const [textFromKeyboard, setTextFromKeyboard] = useState<string[]>([]);
-    const [error, setError] = useState<boolean>(false);
+    const currentIndex = useAppSelector((state) => state.test.currentIndex);
+    const error = useAppSelector((state) => state.test.textError);
+    const textFromKeyboard = useAppSelector((state) => state.test.textFromKeyboard);
 
     useEffect(() => {
         dispatch(fetchText());
+        // console.log('получение текста');
     }, [dispatch]);
 
     useEffect(() => {
@@ -20,13 +29,14 @@ export function TestText() {
             dispatch(gameStatus(true));
             if (e.key === text[textFromKeyboard.length]) {
                 dispatch(incCorrectWord());
-                setError(false);
-                setTextFromKeyboard((prev) => [...prev, e.key]);
+                dispatch(setTextError(false));
+                dispatch(addTextFromKeyboard(e.key));
+                dispatch(setCurrentIndex(textFromKeyboard.length + 1));
             } else {
                 if (!error) {
                     dispatch(incWrongWord());
                 }
-                setError(true);
+                dispatch(setTextError(true));
             }
         };
 
@@ -47,7 +57,7 @@ export function TestText() {
                         </span>
                     );
                 }
-                if (index === textFromKeyboard.length || textFromKeyboard.length === undefined) {
+                if (index === currentIndex) {
                     if (error) {
                         return (
                             <span className="wrong-word text-white" key={v4()}>
