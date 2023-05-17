@@ -6,9 +6,10 @@ import { fetchText, clearGame } from '../../../../../entities/test/model';
 export function ResetTest() {
     const dispatch = useAppDispatch();
     const isLoading = useAppSelector((state) => state.test.loading);
+    const gameMode = useAppSelector((state) => state.test.mode);
 
     const resetGame = () => {
-        dispatch(fetchText());
+        dispatch(fetchText(gameMode));
         dispatch(clearGame());
     };
 

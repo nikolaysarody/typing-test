@@ -1,18 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-
-interface BaconText {
-    loading: boolean;
-    error: string;
-    text: string;
-    speed: number;
-    correctWord: number;
-    wrongWord: number;
-    isGameStarted: boolean;
-    time: number;
-    currentIndex: number;
-    textError: boolean;
-    textFromKeyboard: string[];
-}
+import { BaconText, TypingTestModes } from './types';
 
 const initialState: BaconText = {
     loading: false,
@@ -22,10 +9,12 @@ const initialState: BaconText = {
     correctWord: 0,
     wrongWord: 0,
     isGameStarted: false,
+    isOptionsInstalled: false,
     time: 0,
     currentIndex: 0,
     textError: false,
     textFromKeyboard: [],
+    mode: TypingTestModes.rus,
 };
 
 const testSlice = createSlice({
@@ -74,6 +63,12 @@ const testSlice = createSlice({
         addTextFromKeyboard(state, action: PayloadAction<string>) {
             state.textFromKeyboard = [...state.textFromKeyboard, action.payload];
         },
+        setMode(state, action: PayloadAction<TypingTestModes>) {
+            state.mode = action.payload;
+        },
+        startGame(state) {
+            state.isOptionsInstalled = true;
+        },
     },
 });
 
@@ -89,6 +84,8 @@ export const {
     setCurrentIndex,
     setTextError,
     addTextFromKeyboard,
+    setMode,
+    startGame,
 } = testSlice.actions;
 
 export const testReducer = testSlice.reducer;

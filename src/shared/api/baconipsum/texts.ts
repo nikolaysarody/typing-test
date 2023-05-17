@@ -1,10 +1,10 @@
 import { apiInstance } from './base';
 import type { AxiosPromise } from 'axios';
-import type { BaconText, Type, Format } from './models';
+import type { BaconipsumText, Type, Format } from './models';
 
 const BASE_URL = '/api/';
 
-export type GetTextParams = {
+export type BaconTextParams = {
     type: Type;
     paras?: number;
     sentences?: number;
@@ -12,6 +12,6 @@ export type GetTextParams = {
     format?: Format;
 };
 
-export const getText = (params?: GetTextParams): AxiosPromise<BaconText> => {
+export const getText = (params?: BaconTextParams): AxiosPromise<BaconipsumText> => {
     return apiInstance.get(BASE_URL, { params });
 };

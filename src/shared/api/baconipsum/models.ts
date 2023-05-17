@@ -1,4 +1,4 @@
-export type BaconText = string[];
+export type BaconipsumText = string[];
 export enum Type {
     allMeat = 'all-meat',
     meatAndFiller = 'meat-and-filler',

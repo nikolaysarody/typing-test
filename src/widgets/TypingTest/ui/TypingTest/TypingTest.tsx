@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { TestErrors, TestSpeed, TestText } from '../../../../entities/test';
 import './TypingTest.scss';
-import { ResetTest } from '../../../../features/test/reset-test';
+import { ResetTest } from '../../../../features/test/resetTest';
 
 export function TypingTest() {
     return (

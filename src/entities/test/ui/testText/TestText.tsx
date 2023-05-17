@@ -21,9 +21,10 @@ export function TestText() {
     const textFromKeyboard = useAppSelector((state) => state.test.textFromKeyboard);
     const isLoading = useAppSelector((state) => state.test.loading);
     const isLoadingError = useAppSelector((state) => state.test.error);
+    const gameMode = useAppSelector((state) => state.test.mode);
 
     useEffect(() => {
-        dispatch(fetchText());
+        dispatch(fetchText(gameMode));
     }, [dispatch]);
 
     useEffect(() => {
