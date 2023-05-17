@@ -1,30 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { useAppSelector } from '../../../../shared/hooks';
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../../shared/hooks';
+import { incTime } from '../../model';
 
 export function TestSpeed() {
+    const dispatch = useAppDispatch();
     const isGameStarted = useAppSelector((state) => state.test.isGameStarted);
-    const [time, setTime] = useState<number>(0);
-    // const wrongWord = useAppSelector((state) => state.test.wrongWord);
+    const gameTime = useAppSelector((state) => state.test.time);
     const correctWord = useAppSelector((state) => state.test.correctWord);
 
     const CPM = () => {
         if (!isGameStarted) {
             return 0;
         }
-        return Math.round((correctWord / (time || 1)) * 60);
+        return Math.round((correctWord / (gameTime || 1)) * 60);
     };
 
     useEffect(() => {
         let timerId: NodeJS.Timer;
         if (isGameStarted) {
             timerId = setInterval(() => {
-                setTime((prev) => prev + 1);
+                dispatch(incTime());
             }, 1000);
         }
         return () => {
             clearInterval(timerId);
         };
-    }, [isGameStarted]);
+    }, [dispatch, isGameStarted]);
 
     return (
         <div className="d-flex flex-column align-items-start">

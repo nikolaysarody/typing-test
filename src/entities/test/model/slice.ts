@@ -4,22 +4,22 @@ interface BaconText {
     loading: boolean;
     error: string;
     text: string;
-    textErrors: number;
     speed: number;
     correctWord: number;
     wrongWord: number;
     isGameStarted: boolean;
+    time: number;
 }
 
 const initialState: BaconText = {
     loading: false,
     error: '',
     text: '',
-    textErrors: 0,
     speed: 0,
     correctWord: 0,
     wrongWord: 0,
     isGameStarted: false,
+    time: 0,
 };
 
 export const testSlice = createSlice({
@@ -46,7 +46,17 @@ export const testSlice = createSlice({
         incWrongWord(state) {
             state.wrongWord += 1;
         },
+        incTime(state) {
+            state.time += 1;
+        },
+        clearGame(state) {
+            state.speed = 0;
+            state.correctWord = 0;
+            state.wrongWord = 0;
+            state.isGameStarted = false;
+        },
     },
 });
 
-export const { fetching, fetchSuccess, fetchError, gameStatus, incCorrectWord, incWrongWord } = testSlice.actions;
+export const { fetching, fetchSuccess, fetchError, gameStatus, incCorrectWord, incWrongWord, incTime, clearGame } =
+    testSlice.actions;

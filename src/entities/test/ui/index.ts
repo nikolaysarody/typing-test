@@ -1,3 +1,3 @@
-export * from './testErrors/TestErrors';
-export * from './testText/TestText';
-export * from './testSpeed/TestSpeed';
+export { TestErrors } from './testErrors/TestErrors';
+export { TestText } from './testText/TestText';
+export { TestSpeed } from './testSpeed/TestSpeed';
