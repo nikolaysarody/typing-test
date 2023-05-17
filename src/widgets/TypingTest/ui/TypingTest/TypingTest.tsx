@@ -1,8 +1,9 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { TestErrors, TestSpeed, TestText } from '../../../../entities/test';
+import { TestErrors, TestSpeed } from '../../../../entities/test';
 import './TypingTest.scss';
 import { ResetTest } from '../../../../features/test/resetTest';
+import { TestText } from '../../../../features/test/testText';
 
 export function TypingTest() {
     return (

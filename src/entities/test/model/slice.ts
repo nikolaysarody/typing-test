@@ -51,18 +51,8 @@ const testSlice = createSlice({
         setTextError(state, action: PayloadAction<boolean>) {
             state.textError = action.payload;
         },
-        clearGame(state) {
-            state.speed = 0;
-            state.correctWord = 0;
-            state.wrongWord = 0;
-            state.isGameStarted = false;
-            state.time = 0;
-            state.currentIndex = 0;
-            state.textError = false;
-            state.textFromKeyboard = [];
-            state.mode = TypingTestModes.rus;
-            state.isOptionsInstalled = false;
-            state.isGameFinished = false;
+        clearGame() {
+            return initialState;
         },
         addTextFromKeyboard(state, action: PayloadAction<string>) {
             state.textFromKeyboard = [...state.textFromKeyboard, action.payload];

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { v4 } from 'uuid';
 import { Spinner, Modal } from 'react-bootstrap';
-import { useAppDispatch, useAppSelector } from '../../../../shared/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../../shared/hooks';
 import './TestText.scss';
 import {
     addTextFromKeyboard,
@@ -12,8 +11,8 @@ import {
     incWrongWord,
     setCurrentIndex,
     setTextError,
-} from '../../model';
-import { TypingTestModes } from '../../model/types';
+} from '../../../../../entities/test/model';
+import { TypingTestModes } from '../../../../../entities/test/model/types';
 
 export function TestText() {
     const dispatch = useAppDispatch();
@@ -114,7 +113,7 @@ export function TestText() {
                 {text.map((item, index) => {
                     if (item === textFromKeyboard[index]) {
                         return (
-                            <span className="text-success" key={v4()}>
+                            <span className="text-success" key={`${item}_${index}`}>
                                 {item}
                             </span>
                         );
@@ -122,18 +121,18 @@ export function TestText() {
                     if (index === currentIndex) {
                         if (error) {
                             return (
-                                <span className="wrong-word text-white" key={v4()}>
+                                <span className="wrong-word text-white" key={`${item}_${index}`}>
                                     {item}
                                 </span>
                             );
                         }
                         return (
-                            <span className="current-word text-white" key={v4()}>
+                            <span className="current-word text-white" key={`${item}_${index}`}>
                                 {item}
                             </span>
                         );
                     }
-                    return <span key={v4()}>{item}</span>;
+                    return <span key={`${item}_${index}`}>{item}</span>;
                 })}
             </span>
         </>
