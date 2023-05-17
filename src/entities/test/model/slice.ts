@@ -28,7 +28,7 @@ const initialState: BaconText = {
     textFromKeyboard: [],
 };
 
-export const testSlice = createSlice({
+const testSlice = createSlice({
     name: 'texts',
     initialState,
     reducers: {
@@ -90,3 +90,5 @@ export const {
     setTextError,
     addTextFromKeyboard,
 } = testSlice.actions;
+
+export const testReducer = testSlice.reducer;

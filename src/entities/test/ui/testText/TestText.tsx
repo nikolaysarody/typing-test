@@ -20,6 +20,7 @@ export function TestText() {
     const error = useAppSelector((state) => state.test.textError);
     const textFromKeyboard = useAppSelector((state) => state.test.textFromKeyboard);
     const isLoading = useAppSelector((state) => state.test.loading);
+    const isLoadingError = useAppSelector((state) => state.test.error);
 
     useEffect(() => {
         dispatch(fetchText());
@@ -52,6 +53,14 @@ export function TestText() {
         return (
             <div className="d-flex align-items-center justify-content-center h-100">
                 <Spinner animation="border" />
+            </div>
+        );
+    }
+
+    if (isLoadingError) {
+        return (
+            <div className="d-flex align-items-center justify-content-center h-100">
+                <span className="text-danger">{isLoadingError}</span>
             </div>
         );
     }

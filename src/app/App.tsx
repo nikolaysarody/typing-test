@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import { TypingTestPage } from '../pages/typing-test-page';
+import { TypingTestPage } from '../pages/typingTestPage';
 
 function App() {
     return (

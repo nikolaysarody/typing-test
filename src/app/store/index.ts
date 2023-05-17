@@ -1,8 +1,8 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { testSlice } from '../../entities/test/model/slice';
+import { testReducer } from '../../entities/test/model/slice';
 
 const rootReducer = combineReducers({
-    test: testSlice.reducer,
+    test: testReducer,
 });
 
 export const store = configureStore({
