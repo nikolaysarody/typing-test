@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks';
 import { fetchText } from '../../model';
-import './styles.scss';
+import './TestText.scss';
 import { gameStatus, incCorrectWord, incWrongWord } from '../../model/slice';
 
 export function TestText() {
