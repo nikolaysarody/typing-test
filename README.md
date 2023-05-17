@@ -2,6 +2,10 @@
 
 Ссылка на опубликованный проект: <https://nikolaysarody.github.io/typing-test/>
 
+Используемые технологии: React, redux-toolkit, bootstrap 5.
+Испульзуемые публичные API: Fish-Text <https://fish-text.ru/>, Bacon Ipsum <https://baconipsum.com/>
+Архитектура: Feature-Sliced Design.
+
 Инструкция по запуску клиента локально:
 1) Если у Вас не установлены `Node.js` и `git`, установите их - <https://nodejs.org/en/download/> и <https://git-scm.com/download/>.
 2) Откройте терминал и перейдите в папку, в которой будет находиться этот проект, либо другим удобным для Вас методом.
