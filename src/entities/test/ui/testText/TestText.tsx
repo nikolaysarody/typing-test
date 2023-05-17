@@ -15,7 +15,17 @@ import {
 
 export function TestText() {
     const dispatch = useAppDispatch();
-    const text = useAppSelector((state) => state.test.text).split('');
+    const text = useAppSelector((state) => state.test.text)
+        .split('')
+        .map((item) => {
+            if (item === 'ё') {
+                return 'е';
+            }
+            if (item === '—') {
+                return '-';
+            }
+            return item;
+        });
     const currentIndex = useAppSelector((state) => state.test.currentIndex);
     const error = useAppSelector((state) => state.test.textError);
     const textFromKeyboard = useAppSelector((state) => state.test.textFromKeyboard);

@@ -59,6 +59,8 @@ const testSlice = createSlice({
             state.currentIndex = 0;
             state.textError = false;
             state.textFromKeyboard = [];
+            state.mode = TypingTestModes.rus;
+            state.isOptionsInstalled = false;
         },
         addTextFromKeyboard(state, action: PayloadAction<string>) {
             state.textFromKeyboard = [...state.textFromKeyboard, action.payload];
