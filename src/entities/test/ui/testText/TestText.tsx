@@ -103,11 +103,10 @@ export function TestText() {
             <Modal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
-                size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
-                <Modal.Header className="d-flex justify-content-center">
+                <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">Проверьте раскладку клавиатуры</Modal.Title>
                 </Modal.Header>
             </Modal>
