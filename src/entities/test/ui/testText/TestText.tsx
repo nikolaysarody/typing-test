@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { v4 } from 'uuid';
+import { Spinner } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks';
 import './TestText.scss';
 import {
+    addTextFromKeyboard,
+    fetchText,
     gameStatus,
     incCorrectWord,
     incWrongWord,
-    fetchText,
     setCurrentIndex,
     setTextError,
-    addTextFromKeyboard,
 } from '../../model';
 
 export function TestText() {
@@ -18,10 +19,10 @@ export function TestText() {
     const currentIndex = useAppSelector((state) => state.test.currentIndex);
     const error = useAppSelector((state) => state.test.textError);
     const textFromKeyboard = useAppSelector((state) => state.test.textFromKeyboard);
+    const isLoading = useAppSelector((state) => state.test.loading);
 
     useEffect(() => {
         dispatch(fetchText());
-        // console.log('получение текста');
     }, [dispatch]);
 
     useEffect(() => {
@@ -46,6 +47,14 @@ export function TestText() {
             document.removeEventListener('keypress', onKeypress);
         };
     }, [dispatch, textFromKeyboard, text, error]);
+
+    if (isLoading) {
+        return (
+            <div className="d-flex align-items-center justify-content-center h-100">
+                <Spinner animation="border" />
+            </div>
+        );
+    }
 
     return (
         <span className="fs-4">
