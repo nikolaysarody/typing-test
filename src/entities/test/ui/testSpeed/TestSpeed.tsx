@@ -34,7 +34,11 @@ export function TestSpeed() {
     return (
         <div className="d-flex flex-column align-items-start">
             <div className="text-secondary d-flex align-items-center justify-content-center">
-                <img src="/images/free-icon-speedometer-2787169.png" alt="Speed" height="24" />
+                <img
+                    src={`${process.env.PUBLIC_URL}/images/free-icon-speedometer-2787169.png`}
+                    alt="Speed"
+                    height="24"
+                />
                 <span className="fs-6 ps-2">Скорость</span>
             </div>
             <div className="text-primary d-flex justify-content-center align-items-end">

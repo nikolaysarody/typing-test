@@ -44,13 +44,13 @@ export function TestText() {
         const onKeypress = (e: KeyboardEvent) => {
             switch (gameMode) {
                 case TypingTestModes.eng: {
-                    if (e.key.match(/[a-z]|[0-9]|\s/i) === null) {
+                    if (e.key.match(/[a-z]|[0-9]|\s|\.|-|:|!|\?/i) === null) {
                         setModalShow(true);
                     }
                     break;
                 }
                 case TypingTestModes.rus: {
-                    if (e.key.match(/[а-я]|[0-9]|\s/i) === null) {
+                    if (e.key.match(/[а-я]|[0-9]|\s|\.|-|:|!|\?/i) === null) {
                         setModalShow(true);
                     }
                     break;
