@@ -8,6 +8,7 @@ const initialState: BaconText = {
     speed: 0,
     correctWord: 0,
     wrongWord: 0,
+    isGameFinished: false,
     isGameStarted: false,
     isOptionsInstalled: false,
     time: 0,
@@ -61,6 +62,7 @@ const testSlice = createSlice({
             state.textFromKeyboard = [];
             state.mode = TypingTestModes.rus;
             state.isOptionsInstalled = false;
+            state.isGameFinished = false;
         },
         addTextFromKeyboard(state, action: PayloadAction<string>) {
             state.textFromKeyboard = [...state.textFromKeyboard, action.payload];
@@ -70,6 +72,9 @@ const testSlice = createSlice({
         },
         startGame(state) {
             state.isOptionsInstalled = true;
+        },
+        finishGame(state) {
+            state.isGameFinished = true;
         },
     },
 });
@@ -88,6 +93,7 @@ export const {
     addTextFromKeyboard,
     setMode,
     startGame,
+    finishGame,
 } = testSlice.actions;
 
 export const testReducer = testSlice.reducer;

@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
-import { Spinner } from 'react-bootstrap';
+import { Spinner, Modal } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks';
 import './TestText.scss';
 import {
     addTextFromKeyboard,
     fetchText,
+    finishGame,
     gameStatus,
     incCorrectWord,
     incWrongWord,
     setCurrentIndex,
     setTextError,
 } from '../../model';
+import { TypingTestModes } from '../../model/types';
 
 export function TestText() {
     const dispatch = useAppDispatch();
@@ -32,13 +34,30 @@ export function TestText() {
     const isLoading = useAppSelector((state) => state.test.loading);
     const isLoadingError = useAppSelector((state) => state.test.error);
     const gameMode = useAppSelector((state) => state.test.mode);
+    const [modalShow, setModalShow] = useState<boolean>(false);
 
     useEffect(() => {
         dispatch(fetchText(gameMode));
-    }, [dispatch]);
+    }, [dispatch, gameMode]);
 
     useEffect(() => {
         const onKeypress = (e: KeyboardEvent) => {
+            switch (gameMode) {
+                case TypingTestModes.eng: {
+                    if (e.key.match(/[a-z]|[0-9]|\s/i) === null) {
+                        setModalShow(true);
+                    }
+                    break;
+                }
+                case TypingTestModes.rus: {
+                    if (e.key.match(/[а-я]|[0-9]|\s/i) === null) {
+                        setModalShow(true);
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
             dispatch(gameStatus(true));
             if (e.key === text[textFromKeyboard.length]) {
                 dispatch(incCorrectWord());
@@ -51,6 +70,9 @@ export function TestText() {
                 }
                 dispatch(setTextError(true));
             }
+            if (textFromKeyboard.length + 1 === text.length) {
+                dispatch(finishGame());
+            }
         };
 
         document.addEventListener('keypress', onKeypress);
@@ -58,7 +80,7 @@ export function TestText() {
         return () => {
             document.removeEventListener('keypress', onKeypress);
         };
-    }, [dispatch, textFromKeyboard, text, error]);
+    }, [dispatch, textFromKeyboard, text, error, gameMode]);
 
     if (isLoading) {
         return (
@@ -77,31 +99,44 @@ export function TestText() {
     }
 
     return (
-        <span className="fs-4">
-            {text.map((item, index) => {
-                if (item === textFromKeyboard[index]) {
-                    return (
-                        <span className="text-success" key={v4()}>
-                            {item}
-                        </span>
-                    );
-                }
-                if (index === currentIndex) {
-                    if (error) {
+        <>
+            <Modal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header className="d-flex justify-content-center">
+                    <Modal.Title id="contained-modal-title-vcenter">Проверьте раскладку клавиатуры</Modal.Title>
+                </Modal.Header>
+            </Modal>
+            <span className="fs-4">
+                {text.map((item, index) => {
+                    if (item === textFromKeyboard[index]) {
                         return (
-                            <span className="wrong-word text-white" key={v4()}>
+                            <span className="text-success" key={v4()}>
                                 {item}
                             </span>
                         );
                     }
-                    return (
-                        <span className="current-word text-white" key={v4()}>
-                            {item}
-                        </span>
-                    );
-                }
-                return <span key={v4()}>{item}</span>;
-            })}
-        </span>
+                    if (index === currentIndex) {
+                        if (error) {
+                            return (
+                                <span className="wrong-word text-white" key={v4()}>
+                                    {item}
+                                </span>
+                            );
+                        }
+                        return (
+                            <span className="current-word text-white" key={v4()}>
+                                {item}
+                            </span>
+                        );
+                    }
+                    return <span key={v4()}>{item}</span>;
+                })}
+            </span>
+        </>
     );
 }

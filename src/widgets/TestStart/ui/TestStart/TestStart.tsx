@@ -11,7 +11,7 @@ export function TestStart() {
                 <div className="d-flex justify-content-end p-5">
                     <span className="fs-4 text-center">
                         Добро пожаловать на тренажер слепой печати. Выберите раскладку и нажмите кнопку
-                        &quot;Начать&quot;. По умолчанию включена русская раскладка.
+                        &quot;Начать&quot;.
                     </span>
                 </div>
                 <StartTest />

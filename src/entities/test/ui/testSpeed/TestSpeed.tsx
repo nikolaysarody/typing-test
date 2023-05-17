@@ -7,6 +7,7 @@ export function TestSpeed() {
     const isGameStarted = useAppSelector((state) => state.test.isGameStarted);
     const gameTime = useAppSelector((state) => state.test.time);
     const correctWord = useAppSelector((state) => state.test.correctWord);
+    const isGameFinished = useAppSelector((state) => state.test.isGameFinished);
 
     const CPM = () => {
         if (!isGameStarted) {
@@ -21,11 +22,14 @@ export function TestSpeed() {
             timerId = setInterval(() => {
                 dispatch(incTime());
             }, 1000);
+            if (isGameFinished) {
+                clearInterval(timerId);
+            }
         }
         return () => {
             clearInterval(timerId);
         };
-    }, [dispatch, isGameStarted]);
+    }, [dispatch, isGameStarted, isGameFinished]);
 
     return (
         <div className="d-flex flex-column align-items-start">

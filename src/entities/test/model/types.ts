@@ -5,6 +5,7 @@ export interface BaconText {
     speed: number;
     correctWord: number;
     wrongWord: number;
+    isGameFinished: boolean;
     isGameStarted: boolean;
     isOptionsInstalled: boolean;
     time: number;
