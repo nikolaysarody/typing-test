@@ -6,6 +6,9 @@ interface BaconText {
     text: string;
     textErrors: number;
     speed: number;
+    correctWord: number;
+    wrongWord: number;
+    isGameStarted: boolean;
 }
 
 const initialState: BaconText = {
@@ -14,6 +17,9 @@ const initialState: BaconText = {
     text: '',
     textErrors: 0,
     speed: 0,
+    correctWord: 0,
+    wrongWord: 0,
+    isGameStarted: false,
 };
 
 export const testSlice = createSlice({
@@ -31,7 +37,16 @@ export const testSlice = createSlice({
             state.loading = false;
             state.error = action.payload.message;
         },
+        gameStatus(state, action: PayloadAction<boolean>) {
+            state.isGameStarted = action.payload;
+        },
+        incCorrectWord(state) {
+            state.correctWord += 1;
+        },
+        incWrongWord(state) {
+            state.wrongWord += 1;
+        },
     },
 });
 
-export const { fetching, fetchSuccess, fetchError } = testSlice.actions;
+export const { fetching, fetchSuccess, fetchError, gameStatus, incCorrectWord, incWrongWord } = testSlice.actions;

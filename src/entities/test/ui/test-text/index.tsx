@@ -3,6 +3,7 @@ import { v4 } from 'uuid';
 import { useAppDispatch, useAppSelector } from '../../../../shared/hooks';
 import { fetchText } from '../../model';
 import './styles.scss';
+import { gameStatus, incCorrectWord, incWrongWord } from '../../model/slice';
 
 export function TestText() {
     const dispatch = useAppDispatch();
@@ -16,10 +17,15 @@ export function TestText() {
 
     useEffect(() => {
         const onKeypress = (e: KeyboardEvent) => {
+            dispatch(gameStatus(true));
             if (e.key === text[textFromKeyboard.length]) {
+                dispatch(incCorrectWord());
                 setError(false);
                 setTextFromKeyboard((prev) => [...prev, e.key]);
             } else {
+                if (!error) {
+                    dispatch(incWrongWord());
+                }
                 setError(true);
             }
         };
@@ -29,10 +35,10 @@ export function TestText() {
         return () => {
             document.removeEventListener('keypress', onKeypress);
         };
-    }, [textFromKeyboard, text]);
+    }, [dispatch, textFromKeyboard, text, error]);
 
     return (
-        <span>
+        <span className="fs-4">
             {text.map((item, index) => {
                 if (item === textFromKeyboard[index]) {
                     return (
