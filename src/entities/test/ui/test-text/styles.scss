@@ -1,0 +1,16 @@
+@import "~bootstrap/scss/bootstrap";
+
+@mixin word {
+    padding: 0 3px 0 3px;
+    border-radius: 3px;
+}
+
+.current-word {
+    background-color: $blue-300;
+    @include word;
+}
+
+.wrong-word {
+    background-color: $red-300;
+    @include word;
+}

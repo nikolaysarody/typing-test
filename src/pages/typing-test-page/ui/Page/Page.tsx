@@ -1,12 +1,6 @@
 import React from 'react';
-// import Button from 'react-bootstrap/Button';
-// import Stack from 'react-bootstrap/Stack';
-import { TestText } from '../../../../entities/test';
+import { TypingTest } from '../../../../widgets/TypingTest';
 
 export function TypingTestPage() {
-    return (
-        <div>
-            <TestText />
-        </div>
-    );
+    return <TypingTest />;
 }
