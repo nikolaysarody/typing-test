@@ -3,7 +3,9 @@
 Ссылка на опубликованный проект: <https://nikolaysarody.github.io/typing-test/>
 
 Используемые технологии: React, redux-toolkit, bootstrap 5.
+
 Используемые публичные API: Fish-Text <https://fish-text.ru/>, Bacon Ipsum <https://baconipsum.com/>
+
 Архитектура: Feature-Sliced Design.
 
 Инструкция по запуску клиента локально:
