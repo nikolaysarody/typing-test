@@ -17,7 +17,7 @@ export const fetchText = (mode: TypingTestModes) => {
                     paras: 1,
                     format: baconTypes.Format.json,
                 });
-                dispatch(fetchSuccess(res.data.join('')));
+                dispatch(fetchSuccess(res.data.join('').replace(/\s\s/g, ' ')));
             } else {
                 res = await fishApi.texts.getText({
                     type: fishTypes.Type.sentence,
