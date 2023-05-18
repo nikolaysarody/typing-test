@@ -6,7 +6,7 @@ import { setMode } from '../../../../../entities/test/model';
 
 export function SetOptions() {
     const dispatch = useAppDispatch();
-    const gameMode = useAppSelector((state) => state.test.mode);
+    const gameMode = useAppSelector((state) => state.test.gameMode);
 
     return (
         <DropdownButton

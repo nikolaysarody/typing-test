@@ -1,7 +1,7 @@
-export interface BaconText {
-    loading: boolean;
-    error: string;
-    text: string;
+export interface TestState {
+    isLoading: boolean;
+    isLoadingError: string;
+    text: string[];
     speed: number;
     correctWord: number;
     wrongWord: number;
@@ -12,7 +12,7 @@ export interface BaconText {
     currentIndex: number;
     textError: boolean;
     textFromKeyboard: string[];
-    mode: TypingTestModes;
+    gameMode: TypingTestModes;
 }
 
 export enum TypingTestModes {

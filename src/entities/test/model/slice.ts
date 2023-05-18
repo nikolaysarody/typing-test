@@ -1,10 +1,10 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { BaconText, TypingTestModes } from './types';
+import { TestState, TypingTestModes } from './types';
 
-const initialState: BaconText = {
-    loading: false,
-    error: '',
-    text: '',
+const initialState: TestState = {
+    isLoading: false,
+    isLoadingError: '',
+    text: [],
     speed: 0,
     correctWord: 0,
     wrongWord: 0,
@@ -15,7 +15,7 @@ const initialState: BaconText = {
     currentIndex: 0,
     textError: false,
     textFromKeyboard: [],
-    mode: TypingTestModes.rus,
+    gameMode: TypingTestModes.rus,
 };
 
 const testSlice = createSlice({
@@ -23,15 +23,23 @@ const testSlice = createSlice({
     initialState,
     reducers: {
         fetching(state) {
-            state.loading = true;
+            state.isLoading = true;
         },
         fetchSuccess(state, action: PayloadAction<string>) {
-            state.loading = false;
-            state.text = action.payload;
+            state.isLoading = false;
+            state.text = action.payload.split('').map((item) => {
+                if (item === 'ё') {
+                    return 'е';
+                }
+                if (item === '—') {
+                    return '-';
+                }
+                return item;
+            });
         },
         fetchError(state, action: PayloadAction<Error>) {
-            state.loading = false;
-            state.error = action.payload.message;
+            state.isLoading = false;
+            state.isLoadingError = action.payload.message;
         },
         gameStatus(state, action: PayloadAction<boolean>) {
             state.isGameStarted = action.payload;
@@ -58,7 +66,7 @@ const testSlice = createSlice({
             state.textFromKeyboard = [...state.textFromKeyboard, action.payload];
         },
         setMode(state, action: PayloadAction<TypingTestModes>) {
-            state.mode = action.payload;
+            state.gameMode = action.payload;
         },
         startGame(state) {
             state.isOptionsInstalled = true;

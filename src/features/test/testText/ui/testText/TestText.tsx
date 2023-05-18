@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Spinner, Modal } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../../../../../shared/hooks';
-import './TestText.scss';
 import {
     addTextFromKeyboard,
     fetchText,
@@ -13,26 +12,14 @@ import {
     setTextError,
 } from '../../../../../entities/test/model';
 import { TypingTestModes } from '../../../../../entities/test/model/types';
+import { TestWord } from '../../../../../entities/test';
 
 export function TestText() {
     const dispatch = useAppDispatch();
-    const text = useAppSelector((state) => state.test.text)
-        .split('')
-        .map((item) => {
-            if (item === 'ё') {
-                return 'е';
-            }
-            if (item === '—') {
-                return '-';
-            }
-            return item;
-        });
-    const currentIndex = useAppSelector((state) => state.test.currentIndex);
-    const error = useAppSelector((state) => state.test.textError);
-    const textFromKeyboard = useAppSelector((state) => state.test.textFromKeyboard);
-    const isLoading = useAppSelector((state) => state.test.loading);
-    const isLoadingError = useAppSelector((state) => state.test.error);
-    const gameMode = useAppSelector((state) => state.test.mode);
+    const text = useAppSelector((state) => state.test.text);
+    const { currentIndex, textError, textFromKeyboard, isLoading, isLoadingError, gameMode } = useAppSelector(
+        (state) => state.test
+    );
     const [modalShow, setModalShow] = useState<boolean>(false);
 
     useEffect(() => {
@@ -64,7 +51,7 @@ export function TestText() {
                 dispatch(addTextFromKeyboard(e.key));
                 dispatch(setCurrentIndex(textFromKeyboard.length + 1));
             } else {
-                if (!error) {
+                if (!textError) {
                     dispatch(incWrongWord());
                 }
                 dispatch(setTextError(true));
@@ -79,7 +66,7 @@ export function TestText() {
         return () => {
             document.removeEventListener('keypress', onKeypress);
         };
-    }, [dispatch, textFromKeyboard, text, error, gameMode]);
+    }, [dispatch, textFromKeyboard, text, textError, gameMode]);
 
     if (isLoading) {
         return (
@@ -89,7 +76,7 @@ export function TestText() {
         );
     }
 
-    if (isLoadingError) {
+    if (isLoadingError !== '') {
         return (
             <div className="d-flex align-items-center justify-content-center h-100">
                 <span className="text-danger">{isLoadingError}</span>
@@ -110,30 +97,15 @@ export function TestText() {
                 </Modal.Header>
             </Modal>
             <span className="fs-4">
-                {text.map((item, index) => {
-                    if (item === textFromKeyboard[index]) {
-                        return (
-                            <span className="text-success" key={`${item}_${index}`}>
-                                {item}
-                            </span>
-                        );
-                    }
-                    if (index === currentIndex) {
-                        if (error) {
-                            return (
-                                <span className="wrong-word text-white" key={`${item}_${index}`}>
-                                    {item}
-                                </span>
-                            );
-                        }
-                        return (
-                            <span className="current-word text-white" key={`${item}_${index}`}>
-                                {item}
-                            </span>
-                        );
-                    }
-                    return <span key={`${item}_${index}`}>{item}</span>;
-                })}
+                {text.map((item, index) => (
+                    <TestWord
+                        item={item}
+                        index={index}
+                        textFromKeyboard={textFromKeyboard[index]}
+                        currentIndex={currentIndex}
+                        key={`${item}_${index}`}
+                    />
+                ))}
             </span>
         </>
     );
