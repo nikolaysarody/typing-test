@@ -51,6 +51,7 @@
         "no-param-reassign": "off",
         "react/no-array-index-key": "off",
         "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "multiline" }],
-        "@typescript-eslint/no-unused-vars": "warn"
+        "@typescript-eslint/no-unused-vars": "warn",
+        "prettier/prettier": ["error", { "endOfLine": "auto" }]
     }
 }
